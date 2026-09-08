@@ -8,7 +8,6 @@
 script = ExtResource("1_ig7tw")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=631049298]
-position = Vector2(-4, -2)
 script = ExtResource("2_0xm2m")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1318970796]
@@ -57,26 +56,33 @@ placeholder_text = "Pause time in search..."
 layout_mode = 2
 script = ExtResource("3_h2yge")
 
-[node name="Left" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=1559186322]
+[node name="checkedLeft" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=1559186322]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "⬅️"
 
-[node name="Right" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=206126307]
+[node name="checkedRight" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=206126307]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "➡️"
 
-[node name="Check" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=544485986]
+[node name="checked" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=544485986]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "⭐"
+text = "✅"
+
+[node name="Uncolor Tree" type="Button" parent="CanvasLayer/Search" unique_id=1933968393]
+custom_minimum_size = Vector2(100, 50)
+custom_maximum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Uncolor tree"
 
 [node name="Tree" type="HFlowContainer" parent="CanvasLayer" unique_id=257966184]
 offset_left = 759.0
@@ -138,11 +144,29 @@ theme_override_font_sizes/font_size = 8
 text = "Random
 Nodes"
 
+[node name="HFlowContainer" type="HFlowContainer" parent="CanvasLayer" unique_id=1380060953]
+custom_minimum_size = Vector2(50, 50)
+custom_maximum_size = Vector2(50, 50)
+offset_left = 1.0
+offset_top = 597.0
+offset_right = 51.0
+offset_bottom = 647.0
+
+[node name="Return to root" type="Button" parent="CanvasLayer/HFlowContainer" unique_id=1394915086]
+custom_minimum_size = Vector2(50, 50)
+custom_maximum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Return to
+root"
+
 [connection signal="button_down" from="CanvasLayer/Search/TypeOfSearch/Binary Search Button" to="." method="binarySearch"]
 [connection signal="button_down" from="CanvasLayer/Search/TypeOfSearch/Cristian Search Button" to="." method="christianSearch"]
-[connection signal="button_down" from="CanvasLayer/Search/OrderBox/Left" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [0]]
-[connection signal="button_down" from="CanvasLayer/Search/OrderBox/Right" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [1]]
-[connection signal="button_down" from="CanvasLayer/Search/OrderBox/Check" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [2]]
+[connection signal="button_down" from="CanvasLayer/Search/OrderBox/checkedLeft" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [0]]
+[connection signal="button_down" from="CanvasLayer/Search/OrderBox/checkedRight" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [1]]
+[connection signal="button_down" from="CanvasLayer/Search/OrderBox/checked" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [2]]
+[connection signal="button_down" from="CanvasLayer/Search/Uncolor Tree" to="." method="uncolorTree"]
 [connection signal="button_down" from="CanvasLayer/Tree/Clear Tree" to="." method="clearTree"]
 [connection signal="button_down" from="CanvasLayer/Tree/New node/New Node" to="." method="addNode"]
 [connection signal="button_down" from="CanvasLayer/Tree/Random Node2/Random Node" to="." method="randomNodes"]
+[connection signal="button_down" from="CanvasLayer/HFlowContainer/Return to root" to="." method="returnToRoot"]

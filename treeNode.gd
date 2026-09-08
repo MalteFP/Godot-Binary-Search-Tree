@@ -6,6 +6,12 @@ var right = null
 var left = null
 var index = null
 
+var checkedRight = false
+var checkedLeft = false
+var checked = false
+
+
+
 func init(value: int, index := 0):
 	self.value = value
 	self.index = index
@@ -56,7 +62,7 @@ func addNode(newNode: treeNode, depth := 1):
 			add_child(line)
 			line.width = 1
 			line.default_color = Color(1.0, 0.0, 0.0, 1.0)
-			var p1 = line.to_local(global_position + Vector2(-10,20))
+			var p1 = line.to_local(global_position + Vector2(10,20))
 			var p2 = line.to_local(newNode.global_position + Vector2(0,-20))
 			line.points = [p1, p2]  
 		else:
@@ -72,3 +78,12 @@ func clearTree():
 	
 	right == null
 	left == null
+
+func colorTree(color: Color):
+	if right != null:
+		right.colorTree(color)
+		right.get_node("ColorRect").color = color
+	if left != null:
+		left.colorTree(color)
+		left.get_node("ColorRect").color = color
+	

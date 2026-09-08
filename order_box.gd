@@ -6,19 +6,13 @@ var selected = -1
 
 func on_button_pressed(index):
 	if selected == -1:
-		# First object selected
 		selected = index
 	else:
-		# Second object selected -> swap them
-		var children = get_children()
+		var a = get_child(selected)
+		var b = get_child(index)
 
-		var temp = children[selected]
-		children[selected] = children[index]
-		children[index] = temp
-
-		# Actually change their positions in the HBoxContainer
-		move_child(children[selected], selected)
-		move_child(children[index], index)
+		move_child(a, index)
+		move_child(b, selected)
 
 		selected = -1
 
@@ -27,7 +21,7 @@ func get_order():
 	var order = []
 
 	for child in get_children():
-		order.append(child.name)
+		order.append(str(child.name))
 
 	return order
 	
