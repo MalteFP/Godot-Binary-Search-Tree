@@ -28,13 +28,12 @@ theme_override_font_sizes/font_size = 8
 text = "Search with
 Binary Search"
 
-[node name="Cristian Search Button" type="Button" parent="CanvasLayer/Search/TypeOfSearch" unique_id=1095190530]
+[node name="Binary Search Button2" type="Button" parent="CanvasLayer/Search/TypeOfSearch" unique_id=1095190530]
 custom_minimum_size = Vector2(100, 50)
 custom_maximum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "Search with
-Cristian Search"
+text = "NAH"
 
 [node name="Terms" type="VFlowContainer" parent="CanvasLayer/Search" unique_id=1207174092]
 layout_mode = 2
@@ -57,26 +56,23 @@ placeholder_text = "Pause time in search..."
 layout_mode = 2
 script = ExtResource("3_h2yge")
 
-[node name="Left" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=1559186322]
+[node name="1" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=1559186322]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "⬅️"
+text = "1"
 
-[node name="Right" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=206126307]
+[node name="2" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=206126307]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "➡️"
+text = "2"
 
-[node name="Check" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=544485986]
+[node name="3" type="Button" parent="CanvasLayer/Search/OrderBox" unique_id=544485986]
 custom_minimum_size = Vector2(50, 50)
 custom_maximum_size = Vector2(50, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "⭐"
+text = "3"
 
 [node name="Tree" type="HFlowContainer" parent="CanvasLayer" unique_id=257966184]
 offset_left = 759.0
@@ -139,10 +135,10 @@ text = "Random
 Nodes"
 
 [connection signal="button_down" from="CanvasLayer/Search/TypeOfSearch/Binary Search Button" to="." method="binarySearch"]
-[connection signal="button_down" from="CanvasLayer/Search/TypeOfSearch/Cristian Search Button" to="." method="christianSearch"]
-[connection signal="button_down" from="CanvasLayer/Search/OrderBox/Left" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [0]]
-[connection signal="button_down" from="CanvasLayer/Search/OrderBox/Right" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [1]]
-[connection signal="button_down" from="CanvasLayer/Search/OrderBox/Check" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [2]]
+[connection signal="button_down" from="CanvasLayer/Search/OrderBox/1" to="." method="_on__button_down" binds= [1, -1]]
+[connection signal="button_down" from="CanvasLayer/Search/OrderBox/1" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [0]]
+[connection signal="button_down" from="CanvasLayer/Search/OrderBox/2" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [1]]
+[connection signal="button_down" from="CanvasLayer/Search/OrderBox/3" to="CanvasLayer/Search/OrderBox" method="_on_button_pressed" binds= [2]]
 [connection signal="button_down" from="CanvasLayer/Tree/Clear Tree" to="." method="clearTree"]
 [connection signal="button_down" from="CanvasLayer/Tree/New node/New Node" to="." method="addNode"]
 [connection signal="button_down" from="CanvasLayer/Tree/Random Node2/Random Node" to="." method="randomNodes"]
