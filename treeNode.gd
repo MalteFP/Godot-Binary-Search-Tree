@@ -80,6 +80,7 @@ func clearTree():
 	left == null
 
 func colorTree(color: Color):
+	get_node("ColorRect").color = color
 	if right != null:
 		right.colorTree(color)
 		right.get_node("ColorRect").color = color
@@ -87,3 +88,11 @@ func colorTree(color: Color):
 		left.colorTree(color)
 		left.get_node("ColorRect").color = color
 	
+func resetAllActions():
+	checkedRight = false
+	checkedLeft = false
+	checked = false
+	if right != null:
+		right.resetAllActions()
+	if left != null:
+		left.resetAllActions()

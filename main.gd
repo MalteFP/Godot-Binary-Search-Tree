@@ -26,12 +26,12 @@ func binarySearch():
 			get_node("Camera2D").zoom = Vector2(1,1)
 			break
 		elif searchVal < searching.value:
-			searching.get_node("ColorRect").color = Color(1.0, 1.0, 1.0, 1.0)
+			searching.get_node("ColorRect").color = Color(1.0, 0.0, 0.0, 1.0)
 			if searching.right != null:
 				searching.right.colorTree(Color(1.0, 0.0, 0.0, 1.0))
 			searching = searching.left
 		else:
-			searching.get_node("ColorRect").color = Color(1.0, 1.0, 1.0, 1.0)
+			searching.get_node("ColorRect").color = Color(1.0, 0.0, 0.0, 1.0)
 			if searching.left != null:
 				searching.left.colorTree(Color(1.0, 0.0, 0.0, 1.0))
 			searching = searching.right
@@ -41,39 +41,39 @@ func christianSearch():
 	var order = get_node("CanvasLayer/Search/OrderBox").get_order()
 	searchVal = int(get_node("CanvasLayer/Search/Terms/Search for").text)
 	var searching = root
-
-	while searching != null:
-
-		searching.get_node("ColorRect").color = Color(1.0, 1.0, 0.0, 1.0)
-		await get_tree().create_timer(float(get_node("CanvasLayer/Search/Terms/Pause Time").text)).timeout
-		var actionsFunc = {
+	
+	var actionsFunc = {
 			"checkedLeft": left,
 			"checkedRight": right,
 			"checked": check
 		}
-		var actionsVar = {
-			"checkedLeft": searching.checkedLeft,
-			"checkedRight": searching.checkedRight,
-			"checked": searching.checked
-		}
+	
+	while searching != null:
+		var rect = searching.get_node("ColorRect")
+		rect.color = Color(1.0, 1.0, 0.0, 1.0)
+		await get_tree().create_timer(float(get_node("CanvasLayer/Search/Terms/Pause Time").text)).timeout
+		
+
 		var temp = null
 		for i in range(3):
-			if actionsVar[order[i]] == false:
+			var key = order[i]
+			if not searching.get(key):
 				temp = actionsFunc[order[i]].call(searching)
 				break
 		if typeof(temp) == 1:
 			if temp == true:
-				searching.get_node("ColorRect").color = Color(0.0, 1.0, 0.0, 1.0)
+				rect.color = Color(0.0, 1.0, 0.0, 1.0)
 				get_node("Camera2D").position = searching.global_position
 				get_node("Camera2D").zoom = Vector2(1,1)
 				break
 		elif temp == null:
-			searching.get_node("ColorRect").color = Color(1.0, 0.0, 0.0, 1.0)
+			rect.color = Color(1.0, 0.0, 0.0, 1.0)
 			searching = searching.get_parent()
 		
 		elif typeof(temp) != 1:
-			searching.get_node("ColorRect").color = Color(1.0, 1.0, 1.0, 1.0)
+			rect.color = Color(1.0, 1.0, 1.0, 1.0)
 			searching = temp
+	root.resetAllActions()
 func left(searching) -> treeNode:
 	searching.checkedLeft = true
 	if searching.left:
@@ -91,15 +91,16 @@ func right(searching) -> treeNode:
 func check(searching) -> bool:
 	searching.checked = true
 	if searching.value == searchVal:
-		print("Found")
 		return true
 	return false
 
 func clearTree():
-	root.queue_free()
+	if root != null:
+		root.queue_free()
 
 func uncolorTree():
-	root.colorTree(Color(1.0, 1.0, 1.0, 1.0))
+	if root != null:
+		root.colorTree(Color(1.0, 1.0, 1.0, 1.0))
 
 func addNode():
 	if root != null:
