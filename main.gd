@@ -3,19 +3,15 @@ extends Node2D
 var TreeNodeScene := preload("res://treeNode.tscn")
 var root
 var searchVal
-func create_node(val: int) -> treeNode:
+func create_node(val: float) -> treeNode:
 	var node = TreeNodeScene.instantiate()
 	node.init(val)
 	return node
-func _ready():
-	var Bool = true
-	if typeof(Bool) == 1:
-		print("true")
-	else:
-		print("false")
+
 
 func binarySearch():
-	searchVal = int(get_node("CanvasLayer/Search/Terms/Search for").text)
+	searchVal = float(get_node("CanvasLayer/Search/Terms/Search for").text)
+	print(searchVal)
 	var searching = root
 	while searching != null:
 		searching.get_node("ColorRect").color = Color(1.0, 1.0, 0.0, 1.0)
@@ -39,7 +35,7 @@ func binarySearch():
 
 func christianSearch():
 	var order = get_node("CanvasLayer/Search/OrderBox").get_order()
-	searchVal = int(get_node("CanvasLayer/Search/Terms/Search for").text)
+	searchVal = float(get_node("CanvasLayer/Search/Terms/Search for").text)
 	var searching = root
 	
 	var actionsFunc = {
@@ -68,12 +64,17 @@ func christianSearch():
 				break
 		elif temp == null:
 			rect.color = Color(1.0, 0.0, 0.0, 1.0)
+			if searching.name == &"root":
+				break
 			searching = searching.get_parent()
 		
 		elif typeof(temp) != 1:
 			rect.color = Color(1.0, 1.0, 1.0, 1.0)
 			searching = temp
-	root.resetAllActions()
+	if root != null:
+		root.resetAllActions()
+
+
 func left(searching) -> treeNode:
 	searching.checkedLeft = true
 	if searching.left:
@@ -104,22 +105,36 @@ func uncolorTree():
 
 func addNode():
 	if root != null:
-		root.addNode(create_node(int(get_node("CanvasLayer/Tree/New node/New Node size").text)))
+		root.addNode(create_node(float(get_node("CanvasLayer/Tree/New node/New Node size").text)))
 	else:
-		root = create_node(int(get_node("CanvasLayer/Tree/New node/New Node size").text))
+		root = create_node(float(get_node("CanvasLayer/Tree/New node/New Node size").text))
 		root.name = "root"
 		add_child(root)
 
 func randomNodes():
-	for i in range(int(get_node("CanvasLayer/Tree/Random Node2/Amount of random nodes").text)):
+	for i in range(float(get_node("CanvasLayer/Tree/Random Node2/Amount of random nodes").text)):
 		if root != null:
-			root.addNode(create_node(randf_range(float(get_node("CanvasLayer/Tree/Random Node2/Start Interval").text), float(get_node("CanvasLayer/Tree/Random Node2/End Interval" ).text))))
+			root.addNode(create_node(int(randf_range(float(get_node("CanvasLayer/Tree/Random Node2/Start Interval").text), float(get_node("CanvasLayer/Tree/Random Node2/End Interval" ).text)))))
 		else:
-			root = create_node(randf_range(float(get_node("CanvasLayer/Tree/Random Node2/Start Interval").text), float(get_node("CanvasLayer/Tree/Random Node2/End Interval" ).text)))
+			root = create_node(int(randf_range(float(get_node("CanvasLayer/Tree/Random Node2/Start Interval").text), float(get_node("CanvasLayer/Tree/Random Node2/End Interval" ).text))))
 			root.name = "root"
 			add_child(root)
 		
 func returnToRoot():
 	get_node("Camera2D").position = Vector2(0,0)
 	get_node("Camera2D").zoom = Vector2(1,1)
-	
+
+
+
+func addMultiableNodes() -> void:
+	var text = str(get_node("CanvasLayer/Tree/VBoxContainer/Mulitable nodes").text)
+	var nums = text.split(", ")
+	for num in nums:
+		print(num)
+		print(float(num))
+		if root != null:
+			root.addNode(create_node(float(num)))
+		else:
+			root = create_node(float(num))
+			root.name = "root"
+			add_child(root)

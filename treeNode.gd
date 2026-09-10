@@ -12,7 +12,7 @@ var checked = false
 
 
 
-func init(value: int, index := 0):
+func init(value: float, index := 0):
 	self.value = value
 	self.index = index
 	self.get_node("ColorRect/Label").text = str(value)

@@ -1,20 +1,27 @@
 extends Control
 
 
-var selected = -1
+var selected = null
+var order = ["checkedLeft","checkedRight","checked"]
 
-
-func on_button_pressed(index):
-	if selected == -1:
-		selected = index
+func on_button_pressed(name: String):
+	if selected == null:
+		selected = name
 	else:
-		var a = get_child(selected)
-		var b = get_child(index)
+		var aIndex = order.find(name)
+		var bIndex = order.find(selected)
+		
+		var temp = order[aIndex]
+		order[aIndex] = order[bIndex]
+		order[bIndex] = temp
+		
+		var a = get_node(name)
+		var b = get_node(selected)
 
-		move_child(a, index)
-		move_child(b, selected)
+		move_child(a, bIndex)
+		move_child(b, aIndex)
 
-		selected = -1
+		selected = null
 
 
 func get_order():
@@ -25,6 +32,5 @@ func get_order():
 
 	return order
 	
-func _on_button_pressed(extra_arg_0: int):
-	print(extra_arg_0)
+func _on_button_pressed(extra_arg_0: String):
 	on_button_pressed(extra_arg_0)
